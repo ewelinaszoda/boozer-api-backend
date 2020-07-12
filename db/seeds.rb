@@ -1,3 +1,8 @@
+Cocktail.destroy_all
+Proportion.destroy_all
+Ingredient.destroy_all
+
+
 recipes = File.readlines('db/pdt_recipes.txt')
 recipes.map! {|recipe| recipe.strip}.reject! {|recipe| recipe.empty?}
 

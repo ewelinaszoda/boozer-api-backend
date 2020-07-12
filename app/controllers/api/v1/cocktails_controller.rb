@@ -28,15 +28,16 @@ module Api
 
       def create
         # cocktail = Cocktail.create(name: params[:name], description: params[:description], instructions: params{:instructions}, source: params{:source})
-        # cocktail = Cocktail.create(name: cocktail_params[:name])
-
-        # cocktail_params[:proportions].each do |proportion|
-        #   ingredient = Ingredient.find_or_create_by(name: proportion[:ingredient_name])
-        #   proportion = Proportion.create(amount: proportion[:amount], ingredient: ingredient, cocktail: cocktail)
-        # end 
+       
 
         cocktail = Cocktail.create(cocktail_params)
 
+        params[:proportions].each do |proportion|
+          Ingredient.create(name: proportion[:ingredient])
+          # Ingredient.find_or_create_by(name: proportion[:ingredient])
+          Proportion.create(amount: proportion[:amount])
+          # Proportion.create(amount: proportion[:amount], ingredient: ingredient, cocktail: cocktail)
+        end 
 
         render json: cocktail 
       end 
@@ -60,7 +61,7 @@ module Api
           :name,
           :description,
           :instructions,
-         proportions: [:ingredient_name, :amount]
+          proportions: [:ingredient, :amount]
         )
       end 
       
