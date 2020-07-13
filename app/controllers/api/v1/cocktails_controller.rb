@@ -17,7 +17,7 @@ module Api
           proportions: cocktail.proportions.map do |prop|
             {
               id: prop.id,
-              ingredient_name: prop.ingredient.name,
+              ingredient: prop.ingredient.name,
               amount: prop.amount
             }
           end
@@ -34,9 +34,8 @@ module Api
 
         params[:proportions].each do |proportion|
           Ingredient.create(name: proportion[:ingredient])
-          # Ingredient.find_or_create_by(name: proportion[:ingredient])
-          Proportion.create(amount: proportion[:amount])
-          # Proportion.create(amount: proportion[:amount], ingredient: ingredient, cocktail: cocktail)
+          # Proportion.create(amount: proportion[:amount])
+          Proportion.create(amount: proportion[:amount], ingredient: ingredient, cocktail: cocktail)
         end 
 
         render json: cocktail 
